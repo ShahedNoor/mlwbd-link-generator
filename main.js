@@ -70,7 +70,17 @@ async function run() {
     const currentUrl = await driver.getCurrentUrl();
     console.log('Link generate successfullty!\nLast URL: ', currentUrl);
 
-  } finally {
+  } catch (error) {
+    if (error instanceof TypeError && error.message.includes("Cannot read properties of null")) {
+      console.error('An error occurred:', error);
+      // Display your custom message in the console
+      console.log('Cannot read properties of null');
+    } else {
+      // Handle other types of errors
+      console.error('An unforeseen error has occurred. It is possible that your internet connection is experiencing reduced speed: ', error);
+    }
+  }
+   finally {
     // Close the web driver
     rl.close();
   }
